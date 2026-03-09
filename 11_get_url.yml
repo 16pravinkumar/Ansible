@@ -1,0 +1,11 @@
+---
+- name: Download python on the remote server
+  hosts: all
+
+  tasks:
+  - name: Download 
+    get_url:
+      url: https://www.python.org/ftp/python/pymanager/python-manager-26.0.msix
+      dest: /home/pravin/Downloads
+      owner: pravin
+      mode: '777'

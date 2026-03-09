@@ -1,0 +1,10 @@
+---
+- name: delete data from remote server
+  hosts: all
+  become: true
+
+  tasks:
+  - name: delete
+    file: 
+      path: /home/pravin/file1.txt
+      state: absent

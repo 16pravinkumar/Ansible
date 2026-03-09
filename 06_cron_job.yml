@@ -1,0 +1,16 @@
+---
+- name: Create the first cronjob
+  hosts: all
+
+  tasks:
+  - name: Ansible cron job
+    cron:
+      name: Run cron job
+      minute: "*"
+      hour: "*"
+      day: 5
+      month: "*"
+      weekday: "*"
+      user: pravin
+      job: /home/pravin/shellpra/01.sh
+      disabled: yes

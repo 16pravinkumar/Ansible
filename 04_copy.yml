@@ -1,0 +1,14 @@
+---
+- name: Copy file
+  hosts: all
+  become: true
+  tasks:
+  - name: Copy data
+    copy: 
+      src: /home/kumar/Data/file1.txt
+      dest: /tmp/
+      owner: devuser
+      group: devData
+      mode: ugo=rw
+      backup: true
+

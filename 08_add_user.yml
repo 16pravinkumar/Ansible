@@ -1,0 +1,11 @@
+---
+- name: Add a new user
+  hosts: all
+  become: yes
+  tasks: 
+  - name: create new user
+    user:
+      name: nick
+      update_password: always
+      password: "{{ '123456789' | password_hash('sha512') }}"
+

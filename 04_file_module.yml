@@ -1,0 +1,24 @@
+---
+- name: Create a file and directory in the remote server
+  hosts: all
+  become: true
+
+  tasks:
+  - name: create a file
+    file:
+      path: /tmp/my_test_file2.txt
+      state: touch
+      owner: devuser
+      group: devData
+      mode: '630'
+  - name: create a folder
+    file:
+      path: /tmp/data
+      state: directory
+      owner: devuser
+      group: devData
+      mode: '777'
+  - name: delete a file
+    file: 
+      path: /tmp/my_test_file.txt
+      state: absent

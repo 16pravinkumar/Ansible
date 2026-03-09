@@ -1,0 +1,44 @@
+- name: Upload playbooks to GitHub
+  hosts: localhost
+  become: no
+
+  vars:
+    repo_url: "https://github.com/16pravinkumar/Ansible.git"
+    repo_dir: "/home/kumar/repo-data-fiel"
+
+  tasks:
+
+  - name: Clone repository
+    git:
+      repo: "{{ repo_url }}"
+      dest: "{{ repo_dir }}"
+      version: main
+      force: yes
+
+  - name: Find playbook files
+    find:
+      paths: /etc/ansible/playbooks
+      patterns: "*.yml"
+    register: playbooks
+
+  - name: Copy playbooks to repo
+    copy:
+      src: "{{ item.path }}"
+      dest: "{{ repo_dir }}/"
+    loop: "{{ playbooks.files }}"
+
+  - name: Git add
+    command: git add .
+    args:
+      chdir: "{{ repo_dir }}"
+
+  - name: Git commit
+    command: git commit -m "Uploading playbooks via Ansible"
+    args:
+      chdir: "{{ repo_dir }}"
+    ignore_errors: yes
+
+  - name: Git push
+    command: git push origin main
+    args:
+      chdir: "{{ repo_dir }}"
